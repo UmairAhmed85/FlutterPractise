@@ -32,8 +32,8 @@ class CarWidgetPage extends StatelessWidget {
         backgroundColor: Colors.blue,
         title: Text(title, style: const TextStyle(color: Colors.white)),
       ),
-      body: const Column(
-        children: <Widget>[
+      body: ListView(
+        children: const <Widget>[
           CarWidget('BMW', 'M3',
               'https://media.ed.edmunds-media.com/bmw/m3/2018/oem/2018_bmw_m3_sedan_base_fq_oem_4_150.jpg'),
           CarWidget('Honda', 'CIVIC',
@@ -59,7 +59,8 @@ class CarWidget extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Center(
             child: Column(
-          children: [Text(_make), Text(_model), Image.network(_imageUrl)],
+          children: [Text(_make), Text(_model), Image.network(_imageUrl,
+            height: 400, scale: 0.3)],
         )));
   }
 }
