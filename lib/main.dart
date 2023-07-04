@@ -57,10 +57,19 @@ class CarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Center(
-            child: Column(
-          children: [Text(_make), Text(_model), Image.network(_imageUrl,
-            height: 400, scale: 0.3)],
-        )));
+        child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.deepOrangeAccent)),
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+                child: Column(
+              children: [
+                Text("$_make $_model", style: TextStyle(fontSize: 24)),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Image.network(_imageUrl),
+                )
+              ],
+            ))));
   }
 }
