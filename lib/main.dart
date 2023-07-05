@@ -3,36 +3,109 @@ import 'package:flutter/material.dart';
 void main() {
   // runApp(const MyApp());
   // runApp( LoadingImageApp());
-  runApp( IconApp());
+  // runApp( IconApp());
+  runApp(ButtonApp());
 }
 
+class ButtonApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Buttons Demo",
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
+      home: ButtonsWidget(),
+    );
+  }
+}
 
+class ButtonsWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Row iconButton = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => debugPrint('IconButton pressed')),
+        Text("Icon Button")
+      ],
+    );
 
+    Row outLineButton = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        OutlinedButton(
+            child: const Text("OutlinedButton"),
+            onPressed: () => debugPrint('OutlinedButton pressed')),
+        const Text("OutlinedButton_Text")
+      ],
+    );
 
-class IconApp extends StatelessWidget{
+    Row dropDownButton = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        DropdownButton(
+            items: ['Men', 'Women'].map((value) {
+              return DropdownMenuItem(
+                value: value,
+                child: Text(value, style: const TextStyle(color: Colors.blue),),
+              );
+            }).toList(),
+            onChanged: (value) => debugPrint('Changed: $value')),
+        const Text("DropdownButton_Text")
+      ],
+    );
 
+    Row backButton = const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [BackButton(), Text("BackButton")],
+    );
+
+    Row closeButton = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        CloseButton(
+          onPressed: () => debugPrint('CloseButton pressed'),
+        ),
+        Text("CloseButton")
+      ],
+    );
+
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Buttons"),
+        ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            iconButton,
+            outLineButton,
+            dropDownButton,
+            backButton,
+            closeButton
+          ],
+        )));
+  }
+}
+
+class IconApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Icons',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue
-      ),
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
       home: IconsWidget(),
     );
   }
 }
 
-class IconsWidget extends StatelessWidget{
-
+class IconsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Row addIconDefault = Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(Icons.add),
-        Text('Size is 24 dp with default color')
-      ],
+      children: [Icon(Icons.add), Text('Size is 24 dp with default color')],
     );
     Row addIcon48DpDefaultColor = Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +117,11 @@ class IconsWidget extends StatelessWidget{
     Row addIcon48DpRedColor = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.add, size: 48, color: Colors.red,),
+        Icon(
+          Icons.add,
+          size: 48,
+          color: Colors.red,
+        ),
         Text('Size is 48 dp with red color')
       ],
     );
@@ -55,22 +132,22 @@ class IconsWidget extends StatelessWidget{
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [addIconDefault, addIcon48DpDefaultColor, addIcon48DpRedColor],
-
+        children: [
+          addIconDefault,
+          addIcon48DpDefaultColor,
+          addIcon48DpRedColor
+        ],
       ),
     );
   }
 }
 
 class LoadingImageApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Image',
-      theme: ThemeData(
-          primarySwatch: Colors.lightBlue
-      ),
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
       home: const HomeWidget(),
     );
   }
@@ -78,7 +155,6 @@ class LoadingImageApp extends StatelessWidget {
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +165,8 @@ class HomeWidget extends StatelessWidget {
       body: Center(
         child: FadeInImage.assetNetwork(
             placeholder: 'assets/loading.gif',
-            image: 'http://archivision.com/educational/samples/files/1A2-F-P-I-2-C1_L.jpg'),
+            image:
+                'http://archivision.com/educational/samples/files/1A2-F-P-I-2-C1_L.jpg'),
       ),
     );
   }
@@ -154,13 +231,13 @@ class CarWidget extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Center(
                 child: Column(
-                  children: [
-                    Text("$_make $_model", style: TextStyle(fontSize: 24)),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Image.network(_imageUrl),
-                    )
-                  ],
-                ))));
+              children: [
+                Text("$_make $_model", style: TextStyle(fontSize: 24)),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Image.network(_imageUrl),
+                )
+              ],
+            ))));
   }
 }
