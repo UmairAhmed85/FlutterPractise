@@ -1,105 +1,47 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const SnackBarDemo());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  static const appTitle = 'Drawer Demo';
+class SnackBarDemo extends StatelessWidget {
+  const SnackBarDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: appTitle,
-      home: MyHomePage(title: appTitle),
+    return MaterialApp(
+      title: 'SnackBar Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('SnackBar Demo'),
+        ),
+        body: const SnackBarPage(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = [
-    Text(
-      'Index 0: Page-1',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Page-2',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Page-3',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class SnackBarPage extends StatelessWidget {
+  const SnackBarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(
-        child: _widgetOptions[_selectedIndex],
-      ),
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Page-1'),
-              selected: _selectedIndex == 0,
-              onTap: () {
-                // Update the state of the app
-                _onItemTapped(0);
-                // Then close the drawer
-                Navigator.pop(context);
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          final snackBar = SnackBar(
+            content: const Text('Yay! A SnackBar!'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change.
               },
             ),
-            ListTile(
-              title: const Text('Page-2'),
-              selected: _selectedIndex == 1,
-              onTap: () {
-                // Update the state of the app
-                _onItemTapped(1);
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Page-3'),
-              selected: _selectedIndex == 2,
-              onTap: () {
-                // Update the state of the app
-                _onItemTapped(2);
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        },
+        child: const Text('Show SnackBar'),
       ),
     );
   }
