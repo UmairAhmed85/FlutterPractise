@@ -5,7 +5,39 @@ void main() {
   // runApp( LoadingImageApp());
   // runApp( IconApp());
   // runApp(ButtonApp());
-  runApp(FlexAppDemo());
+  // runApp(FlexAppDemo());
+  runApp(ListViewAppDemo());
+}
+
+class ListViewAppDemo extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    final title = "Horizontal List";
+    return MaterialApp(
+      title: title,
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: Container(
+          margin: EdgeInsets.symmetric(vertical: 20.0),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              Container(width: 190,color: Colors.green),
+              Container(width: 190,color: Colors.yellow),
+              Container(width: 190,color: Colors.blue),
+              Container(width: 190,color: Colors.red),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class FlexAppDemo extends StatelessWidget {
