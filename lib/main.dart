@@ -4,7 +4,97 @@ void main() {
   // runApp(const MyApp());
   // runApp( LoadingImageApp());
   // runApp( IconApp());
-  runApp(ButtonApp());
+  // runApp(ButtonApp());
+  runApp(FlexAppDemo());
+}
+
+class FlexAppDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Flex Demo",
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
+      home: FlexWidget("Flex"),
+    );
+  }
+}
+
+class FlexWidget extends StatefulWidget {
+  FlexWidget(this.title) : super();
+  final String title;
+
+  @override
+  _FlexWidgetState createState() => _FlexWidgetState();
+}
+
+class _FlexWidgetState extends State<FlexWidget> {
+  final List<MainAxisAlignment> _alignments = [
+    MainAxisAlignment.start,
+    MainAxisAlignment.end,
+    MainAxisAlignment.center,
+    MainAxisAlignment.spaceBetween,
+    MainAxisAlignment.spaceEvenly,
+    MainAxisAlignment.spaceAround
+  ];
+  final List<String> _alignmentsText = [
+    "Start",
+    "End",
+    "Center",
+    "Space Between",
+    "Space Evenly",
+    "Space Around"
+  ];
+  bool _vertical = true;
+  int _alignmentIndex = 0;
+
+  RawMaterialButton red =
+      RawMaterialButton(onPressed: () {}, elevation: 2, fillColor: Colors.red);
+  RawMaterialButton blue =
+      RawMaterialButton(onPressed: () {}, elevation: 2, fillColor: Colors.blue);
+  RawMaterialButton green = RawMaterialButton(
+      onPressed: () {}, elevation: 2, fillColor: Colors.green);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Flex Layouts"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  _vertical = !_vertical;
+                });
+              },
+              icon: const Icon(Icons.rotate_right)),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(_vertical ? "Vertical" : "Horizontal"),
+          ),
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  _alignmentIndex++;
+                  if (_alignmentIndex >= _alignments.length) {
+                    _alignmentIndex = 0;
+                  }
+                });
+              },
+              icon: const Icon(Icons.aspect_ratio)),
+          Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(_alignmentsText[_alignmentIndex])),
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+          )
+        ],
+      ),
+      body: Flex(
+          direction: _vertical ? Axis.vertical : Axis.horizontal,
+          mainAxisAlignment: _alignments[_alignmentIndex],
+          children: [red, blue, green]),
+    );
+  }
 }
 
 class ButtonApp extends StatelessWidget {
@@ -48,7 +138,10 @@ class ButtonsWidget extends StatelessWidget {
             items: ['Men', 'Women'].map((value) {
               return DropdownMenuItem(
                 value: value,
-                child: Text(value, style: const TextStyle(color: Colors.blue),),
+                child: Text(
+                  value,
+                  style: const TextStyle(color: Colors.blue),
+                ),
               );
             }).toList(),
             onChanged: (value) => debugPrint('Changed: $value')),
