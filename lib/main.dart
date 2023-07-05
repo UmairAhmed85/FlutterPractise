@@ -2,7 +2,64 @@ import 'package:flutter/material.dart';
 
 void main() {
   // runApp(const MyApp());
-  runApp( LoadingImageApp());
+  // runApp( LoadingImageApp());
+  runApp( IconApp());
+}
+
+
+
+
+class IconApp extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Icons',
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue
+      ),
+      home: IconsWidget(),
+    );
+  }
+}
+
+class IconsWidget extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    Row addIconDefault = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.add),
+        Text('Size is 24 dp with default color')
+      ],
+    );
+    Row addIcon48DpDefaultColor = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.add, size: 48),
+        Text('Size is 48 dp with default color')
+      ],
+    );
+    Row addIcon48DpRedColor = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.add, size: 48, color: Colors.red,),
+        Text('Size is 48 dp with red color')
+      ],
+    );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Icons'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [addIconDefault, addIcon48DpDefaultColor, addIcon48DpRedColor],
+
+      ),
+    );
+  }
 }
 
 class LoadingImageApp extends StatelessWidget {
