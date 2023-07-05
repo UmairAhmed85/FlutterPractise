@@ -1,7 +1,41 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp( LoadingImageApp());
+}
+
+class LoadingImageApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Image',
+      theme: ThemeData(
+          primarySwatch: Colors.lightBlue
+      ),
+      home: const HomeWidget(),
+    );
+  }
+}
+
+class HomeWidget extends StatelessWidget {
+  const HomeWidget({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Image'),
+      ),
+      body: Center(
+        child: FadeInImage.assetNetwork(
+            placeholder: 'assets/loading.gif',
+            image: 'http://archivision.com/educational/samples/files/1A2-F-P-I-2-C1_L.jpg'),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -63,13 +97,13 @@ class CarWidget extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Center(
                 child: Column(
-              children: [
-                Text("$_make $_model", style: TextStyle(fontSize: 24)),
-                Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Image.network(_imageUrl),
-                )
-              ],
-            ))));
+                  children: [
+                    Text("$_make $_model", style: TextStyle(fontSize: 24)),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Image.network(_imageUrl),
+                    )
+                  ],
+                ))));
   }
 }
